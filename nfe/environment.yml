@@ -1,0 +1,6 @@
+name: nfe
+channels:
+  - https://conda.anaconda.org/gurobi
+  - http://conda.anaconda.org/gurobi
+  - defaults
+prefix: /home/karalias/anaconda3/envs/nfe
