@@ -29,7 +29,7 @@ def get_ground_truth(graph, args):
     ###assign features to node
     ###compute ground truth solution values
     if args.problem=='cut':
-        print('next')
+        #print('next')
         ground = -gurobi_maxcut(graph, time_limit=1.)
 
     elif args.problem=='min_cut':

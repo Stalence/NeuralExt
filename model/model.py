@@ -47,10 +47,10 @@ class ExtensionNet(torch.nn.Module):
             self.SignNet=get_sign_inv_net(hidden1, args)
 
         self.eig_data=[]
-        #if self.args.extension=='neural':
-        #    self.NeuralSignNet=GINDeepSigns(1, hidden1, hidden1, gin_layers=2, mlp_layers=3, mlp_out_dim=self.args.n_sets, use_bn=True, dropout=False, activation='relu')
-        #else:
-        #    self.NeuralSignNet=None
+        if self.args.extension=='neural':
+           self.NeuralSignNet=GINDeepSigns(1, hidden1, hidden1, gin_layers=2, mlp_layers=3, mlp_out_dim=self.args.n_sets, use_bn=True, dropout=False, activation='relu')
+        else:
+           self.NeuralSignNet=None
 
 
         if args.base_gnn=='gat':
@@ -115,9 +115,6 @@ class ExtensionNet(torch.nn.Module):
 
         min_set_val = f_unreg_sets.min()
 
-        #print(min_set_val)
-
-
         return extension, min_set_val
 
     def get_n_sets(self, x):
@@ -148,14 +145,13 @@ class ExtensionNet(torch.nn.Module):
             x = x.unsqueeze(-1)
 
         edge_index= data.edge_index.detach()
-        #graph convs
-        #breakpoint()
+
         x =  F.leaky_relu(self.conv1(x, edge_index)) #+x
         x =  F.leaky_relu(self.conv(x, edge_index))  +x
 
         #linear
         x = self.lin1(x)
-
+        
     
         if not self.args.extension in ['random_walk', 'karger', 'neural', 'lovasz_multi']:
             #this block maps the embedding of each node to a scalar. If using x for random walk/Kargers
@@ -165,26 +161,13 @@ class ExtensionNet(torch.nn.Module):
 
             x = torch.sigmoid(x)
 
-
-
-
-    
         #prepare for extension
         num_graphs = data.batch.max().item() + 1    
         extension_values = num_graphs*[0.]
         min_set_vals = num_graphs*[0.]
 
-        ####NEW
-        #eigenvalues, all_eigenvectors = self.preprocess_for_sampling(x, None, self.args)
-        #all_eigenvectors = self.NeuralSignNet(all_eigenvectors, edge_index)
-        #all_eigenvectors = F.normalize(all_eigenvectors, dim=0)
-
 
         for counter, graph in enumerate(data.to_data_list()):
-
-            ####NEW
-  
-            #sampling_data = (eigenvalues, all_eigenvectors[data.batch==counter] )
 
             ####
             graph_xs = x[data.batch==counter]     

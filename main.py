@@ -199,7 +199,7 @@ if __name__ == '__main__':
         batch_size, learning_rate, numlayers, r_seed, hidden_1, dataset_z = hparams
 
         if manual_feat_dim:
-            args.input_feat_dim=hidden_1
+            args.input_feat_dim=1
 
         #PREPARE DATA
         torch.manual_seed(r_seed)
