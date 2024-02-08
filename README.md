@@ -1,5 +1,5 @@
 # Neural Extensions
-This is the official repo for the paper  "Neural Set Function Extensions: Learning with Discrete Functions in High Dimensions", presented at Neurips 2022. 
+This is the official repo for the paper  "Neural Set Function Extensions: Learning with Discrete Functions in High Dimensions", presented at NeurIPS 2022. 
 
 ![alt text](https://github.com/Stalence/NeuralExt/blob/main/extensions.jpg)
 
