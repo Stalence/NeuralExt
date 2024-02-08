@@ -5,7 +5,7 @@ This is the official repo for the paper  "Neural Set Function Extensions: Learni
 
 
 
-1. Requirements can be found in the environment.yml file
+1. You may create a conda environment using the environment.yml file.
 2. To run our code, have a look at the scripts directory. To run a given script you can just use bash, e.g. to use the Lovasz Extension for maximum clique:
 ```
 bash scripts\testing\ENZYMES\run_lovasz.sh
